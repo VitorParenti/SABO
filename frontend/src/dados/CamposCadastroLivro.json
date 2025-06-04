@@ -1,0 +1,28 @@
+[
+    {
+      "label": "Titulo:",
+      "type": "text",
+      "name": "desTitulo"
+    },
+    {
+      "label": "ISBN:",
+      "type": "number",
+      "name": "desISBN"
+    },
+    {
+      "label": "Autor:",
+      "type": "text",
+      "name": "desAutor"
+    },
+    {
+      "label": "Editora:",
+      "type": "text",
+      "name": "desEditora"
+    },
+    {
+      "label": "Cdd:",
+      "type": "number",
+      "name": "desCdd"
+    }
+  ]
+  

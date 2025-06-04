@@ -38,7 +38,7 @@ const Cabecalho = ({ logado }: CabecalhoProps) => {
       {/* Texto Central */}
       <div className="flex flex-col text-center text-gray-600 border-4 border-cyan-600 500 border-opacity-50 p-4">
         <h1 className="text-lg font-bold">
-          Sistema de Gestão de Modelo
+        Sistema de Acesso à Biblioteca e Ocupações - SABO
         </h1>
       </div>
 

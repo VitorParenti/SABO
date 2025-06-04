@@ -1,0 +1,44 @@
+[
+  {
+    "cpf": "86665503071",
+    "nome": "Carlos Souza",
+    "perfil": "AS",
+    "senha": "carlos123"
+  },
+  {
+    "cpf": "16757282585",
+    "nome": "Fernanda Lima",
+    "perfil": "FS",
+    "senha": ""
+  },
+  {
+    "cpf": "16292183916",
+    "nome": "João Pereira",
+    "perfil": "GS",
+    "senha": "joao123"
+  },
+  {
+    "cpf": "05126140243",
+    "nome": "Ana Martins",
+    "perfil": "AP",
+    "senha": ""
+  },
+  {
+    "cpf": "01304468712",
+    "nome": "Eduardo Silva",
+    "perfil": "FP",
+    "senha": "eduardo123"
+  },
+  {
+    "cpf": "79478896641",
+    "nome": "Mariana Rocha",
+    "perfil": "E",
+    "senha": ""
+  },
+  {
+    "cpf": "01613260164",
+    "nome": "Bruno Costa",
+    "perfil": "ET",
+    "senha": "bruno123"
+  }
+]

@@ -1,0 +1,27 @@
+[
+  {
+    "label": "Logradouro:",
+    "type": "text",
+    "name": "desendereco"
+  },
+  {
+    "label": "Bairro:",
+    "type": "text",
+    "name": "desBairro"
+  },
+  {
+    "label": "Nome do prefeito: ",
+    "type": "text",
+    "name": "desNomePrefeito"
+  },
+  {
+    "label": "Ano do início da gestão atual: ",
+    "type": "number",
+    "name": "anoIniGestao"
+  },
+  {
+    "label": "Ano previsto para o término da gestão atual",
+    "type": "number",
+    "name": "anoFimGestao"
+  }
+]

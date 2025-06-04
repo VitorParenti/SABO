@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Nome e sobrenome: ",
+    "type": "text",
+    "name": "desNomeAP"
+  },
+  {
+    "label": "Email: ",
+    "type": "text",
+    "name": "desEmailAP"
+  },
+  {
+    "label": "CPF: ",
+    "type": "text",
+    "name": "desCPFAP"
+  }
+]

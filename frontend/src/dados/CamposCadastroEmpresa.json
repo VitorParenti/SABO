@@ -1,0 +1,22 @@
+[
+  {
+    "label": "CNPJ:",
+    "type": "text",
+    "name": "desCNPJEmpresa"
+  },
+  {
+    "label": "Nome da empresa:",
+    "type": "text",
+    "name": "desNomeEmpresa"
+  },
+  {
+    "label": "Email da empresa: ",
+    "type": "text",
+    "name": "desEmailEmpresa"
+  },
+  {
+    "label": "Telefone da empresa: ",
+    "type": "tel",
+    "name": "telefoneEmpresa"
+  }
+]
