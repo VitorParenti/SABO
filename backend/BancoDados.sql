@@ -65,7 +65,7 @@ CREATE TABLE Obra (
 -- Tabela Edição
 CREATE TABLE Edicao (
     isbnEdicao VARCHAR(20) PRIMARY KEY,
-    ano_publicacao INT NOT NULL,
+    ano_publicacao INT,
     editora VARCHAR(150),
     cdd VARCHAR(10),  
     cutter VARCHAR(10), 
