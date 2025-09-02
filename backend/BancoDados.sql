@@ -55,7 +55,7 @@ EXECUTE PROCEDURE public.generate_Cargo_codCargo();
 
 -- Tabela Obra
 CREATE TABLE Obra (
-    id_obra INT PRIMARY KEY AUTO_INCREMENT,
+    id_obra SERIAL PRIMARY KEY,
     titulo VARCHAR(255) NOT NULL,
     autor VARCHAR(150) NOT NULL,
     sinopse VARCHAR(255),
@@ -64,21 +64,24 @@ CREATE TABLE Obra (
 
 -- Tabela Edição
 CREATE TABLE Edicao (
-    isbn VARCHAR(20) PRIMARY KEY,
-    ano_publicacao YEAR NOT NULL,
+    isbnEdicao VARCHAR(20) PRIMARY KEY,
+    ano_publicacao INT NOT NULL,
     editora VARCHAR(150),
     cdd VARCHAR(10),  
     cutter VARCHAR(10), 
-    FOREIGN KEY (id_obra) REFERENCES Obra(id_obra)
+	id_obra SERIAL,
+	FOREIGN KEY (id_obra) REFERENCES Obra (id_obra)
 );
 
 -- Tabela Exemplar
+CREATE TYPE estadosDeDisponibilidade AS ENUM ('Disponível', 'Emprestado', 'Manutenção', 'Indisponível', 'Perdido', 'Danificado');
 CREATE TABLE Exemplar (
-    id_exemplar INT PRIMARY KEY AUTO_INCREMENT,
+    id_exemplar SERIAL PRIMARY KEY,
     codigo_exemplar VARCHAR(50) UNIQUE NOT NULL,
     estado_conservacao VARCHAR(50),
-    disponibilidade ENUM('Disponível', 'Emprestado', 'Manutenção', 'Indisponível', 'Perdido', 'Danificado') DEFAULT 'Disponível',
-    FOREIGN KEY (isbn) REFERENCES Edicao(isbn)
+    disponibilidade estadosDeDisponibilidade ,
+	isbnExemplar VARCHAR(20),
+    FOREIGN KEY (isbnExemplar) REFERENCES Edicao (isbnEdicao)
 );
 
 -- FIM #################################################################################
