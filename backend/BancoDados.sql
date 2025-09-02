@@ -67,6 +67,8 @@ CREATE TABLE Edicao (
     isbn VARCHAR(20) PRIMARY KEY,
     ano_publicacao YEAR NOT NULL,
     editora VARCHAR(150),
+    cdd VARCHAR(10),  
+    cutter VARCHAR(10), 
     FOREIGN KEY (id_obra) REFERENCES Obra(id_obra)
 );
 
@@ -75,7 +77,7 @@ CREATE TABLE Exemplar (
     id_exemplar INT PRIMARY KEY AUTO_INCREMENT,
     codigo_exemplar VARCHAR(50) UNIQUE NOT NULL,
     estado_conservacao VARCHAR(50),
-    disponibilidade ENUM('Disponível', 'Emprestado', 'Manutenção', 'Indisponível') DEFAULT 'Disponível',
+    disponibilidade ENUM('Disponível', 'Emprestado', 'Manutenção', 'Indisponível', 'Perdido', 'Danificado') DEFAULT 'Disponível',
     FOREIGN KEY (isbn) REFERENCES Edicao(isbn)
 );
 
