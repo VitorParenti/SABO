@@ -52,4 +52,31 @@ CREATE OR REPLACE TRIGGER tr_generate_Cargo_codCargo
 BEFORE INSERT ON cargo
 FOR EACH ROW
 EXECUTE PROCEDURE public.generate_Cargo_codCargo();
+
+-- Tabela Obra
+CREATE TABLE Obra (
+    id_obra INT PRIMARY KEY AUTO_INCREMENT,
+    titulo VARCHAR(255) NOT NULL,
+    autor VARCHAR(150) NOT NULL,
+    sinopse VARCHAR(255),
+    genero VARCHAR(100)
+);
+
+-- Tabela Edição
+CREATE TABLE Edicao (
+    isbn VARCHAR(20) PRIMARY KEY,
+    ano_publicacao YEAR NOT NULL,
+    editora VARCHAR(150),
+    FOREIGN KEY (id_obra) REFERENCES Obra(id_obra)
+);
+
+-- Tabela Exemplar
+CREATE TABLE Exemplar (
+    id_exemplar INT PRIMARY KEY AUTO_INCREMENT,
+    codigo_exemplar VARCHAR(50) UNIQUE NOT NULL,
+    estado_conservacao VARCHAR(50),
+    disponibilidade ENUM('Disponível', 'Emprestado', 'Manutenção', 'Indisponível') DEFAULT 'Disponível',
+    FOREIGN KEY (isbn) REFERENCES Edicao(isbn)
+);
+
 -- FIM #################################################################################
