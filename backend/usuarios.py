@@ -1,75 +1,119 @@
 import psycopg2
 
-# Configurações do banco
 DB_HOST = "localhost"
 DB_PORT = "5432"
 DB_NAME = "Sabo"
 DB_USER = "postgres"
 DB_PASS = "123456"
 
-try:
-    # Conectar ao banco
-    conn = psycopg2.connect(
+def conectar():
+    return psycopg2.connect(
         host=DB_HOST,
         port=DB_PORT,
         database=DB_NAME,
         user=DB_USER,
         password=DB_PASS
     )
-    cur = conn.cursor()
 
-    # Inserir um usuário
-    cpf = "12345678999"
-    nome = "Lucas Lima"
-    email = "lucas@email.com"
-    senha = "senha123"
-    tipo_usuario = "usuario"
-    
+
+
+def inserir_usuario(cpf, nome, email, senha, tipo_usuario):
+    conn = conectar()
+    cur = conn.cursor()
     cur.execute(
-        """
-        SELECT inserir_usuario(%s::CHAR(11), %s::VARCHAR, %s::VARCHAR, %s::VARCHAR, %s::VARCHAR);
-        """,
+        "SELECT inserir_usuario(%s::CHAR(11), %s::VARCHAR, %s::VARCHAR, %s::VARCHAR, %s::VARCHAR);",
         (cpf, nome, email, senha, tipo_usuario)
     )
-    print("Usuário inserido com sucesso!")
+    conn.commit()
+    cur.close()
+    conn.close()
+    print("Usuario inserido com sucesso!")
 
-    # 2️⃣ Atualizar o usuário
-    nome_novo = "Lucas Lima Atualizado"
-    email_novo = "lucas.novo@email.com"
-    senha_nova = "novaSenha"
-    tipo_novo = "professor"
 
+
+
+def atualizar_usuario(cpf, nome, email, senha, tipo_usuario):
+    conn = conectar()
+    cur = conn.cursor()
     cur.execute(
-        """
-        SELECT atualizar_usuario(%s::CHAR(11), %s::VARCHAR, %s::VARCHAR, %s::VARCHAR, %s::VARCHAR);
-        """,
-        (cpf, nome_novo, email_novo, senha_nova, tipo_novo)
+        "SELECT atualizar_usuario(%s::CHAR(11), %s::VARCHAR, %s::VARCHAR, %s::VARCHAR, %s::VARCHAR);",
+        (cpf, nome, email, senha, tipo_usuario)
     )
-    print("Usuário atualizado com sucesso!")
+    conn.commit()
+    cur.close()
+    conn.close()
+    print("Usuario atualizado com sucesso!")
 
-    # 3️⃣ Consultar o usuário
-    cur.execute(
-        "SELECT * FROM retornar_usuario(%s::CHAR(11));",
-        (cpf,)
-    )
-    usuario = cur.fetchone()
-    print("Dados do usuário:", usuario)
 
-    # 4️⃣ Excluir o usuário
+
+
+def excluir_usuario(cpf):
+    conn = conectar()
+    cur = conn.cursor()
     cur.execute(
         "SELECT excluir_usuario(%s::CHAR(11));",
         (cpf,)
     )
-    print("Usuário excluído com sucesso!")
-
-    # Confirmar alterações
     conn.commit()
+    cur.close()
+    conn.close()
+    print("Usuario excluído com sucesso!")
 
-except Exception as e:
-    print("Erro:", e)
 
-finally:
-    if cur:
-        cur.close()
-    if conn:
-        conn.close()
+
+
+def pesquisar_por_cpf(cpf):
+    conn = conectar()
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT * FROM retornar_usuario(%s::CHAR(11));",
+        (cpf,)
+    )
+    resultado = cur.fetchall()
+    cur.close()
+    conn.close()
+    return resultado
+
+def pesquisar_por_email(email):
+    conn = conectar()
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT * FROM Usuario WHERE email = %s::VARCHAR;",
+        (email,)
+    )
+    resultado = cur.fetchall()
+    cur.close()
+    conn.close()
+    return resultado
+
+def pesquisar_por_tipo(tipo_usuario):
+    conn = conectar()
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT * FROM Usuario WHERE tipo_usuario = %s::VARCHAR;",
+        (tipo_usuario,)
+    )
+    resultado = cur.fetchall()
+    cur.close()
+    conn.close()
+    return resultado
+
+
+if __name__ == "__main__":
+    # Inserir um usuário
+    inserir_usuario("12345678999", "Lucas Lima", "lucas@email.com", "senha123", "usuario")
+
+    # Atualizar o usuário
+    atualizar_usuario("12345678999", "Lucas Lima Atualizado", "lucas.novo@email.com", "novaSenha", "professor")
+
+    # Pesquisar por CPF
+    print(pesquisar_por_cpf("12345678999"))
+
+    # Pesquisar por email
+    print(pesquisar_por_email("lucas.novo@email.com"))
+
+    # Pesquisar por tipo
+    print(pesquisar_por_tipo("professor"))
+
+    # Excluir usuário
+    excluir_usuario("12345678999")
