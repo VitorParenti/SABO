@@ -5,6 +5,14 @@ drop table if exists edicao cascade;
 drop table if exists Exemplar cascade;
 drop type if exists estadosDeDisponibilidade;
 
+
+
+
+
+-- Inicio de coisas de usuario ###################################################################
+
+
+
 CREATE TABLE Usuario (
     cpf CHAR(11) PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
@@ -45,7 +53,77 @@ INSERT INTO Usuario (cpf, nome, email, senha, tipo_usuario) VALUES
 ('11111111129', 'Caio Moreira', 'caio.moreira@email.com', 'senha123', 'bibliotecario'),
 ('11111111130', 'Daniela Ribeiro', 'daniela.ribeiro@email.com', 'senha123', 'bibliotecario');
 
+-- Função para inserir um novo usuário
+CREATE OR REPLACE FUNCTION inserir_usuario(
+    p_cpf CHAR(11),
+    p_nome VARCHAR,
+    p_email VARCHAR,
+    p_senha VARCHAR,
+    p_tipo_usuario VARCHAR
+)
+RETURNS VOID AS $$
+BEGIN
+    INSERT INTO Usuario (cpf, nome, email, senha, tipo_usuario)
+    VALUES (p_cpf, p_nome, p_email, p_senha, p_tipo_usuario);
+END;
+$$ LANGUAGE plpgsql;
+
+-- Função para atualizar um usuário existente
+CREATE OR REPLACE FUNCTION atualizar_usuario(
+    p_cpf CHAR(11),
+    p_nome VARCHAR,
+    p_email VARCHAR,
+    p_senha VARCHAR,
+    p_tipo_usuario VARCHAR
+)
+RETURNS VOID AS $$
+BEGIN
+    UPDATE Usuario
+    SET nome = p_nome,
+        email = p_email,
+        senha = p_senha,
+        tipo_usuario = p_tipo_usuario
+    WHERE cpf = p_cpf;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Função para excluir um usuário
+CREATE OR REPLACE FUNCTION excluir_usuario(p_cpf CHAR(11))
+RETURNS VOID AS $$
+BEGIN
+    DELETE FROM Usuario
+    WHERE cpf = p_cpf;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION retornar_usuario(p_cpf CHAR(11))
+RETURNS TABLE (
+    cpf CHAR(11),
+    nome VARCHAR,
+    email VARCHAR,
+    senha VARCHAR,
+    tipo_usuario VARCHAR
+) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT u.cpf, u.nome, u.email, u.senha, u.tipo_usuario
+    FROM Usuario u
+    WHERE u.cpf = p_cpf;
+END;
+$$ LANGUAGE plpgsql;
+
 SELECT * FROM USUARIO;
+
+
+
+
+-- Fim de coisas de usuario ###################################################################
+
+
+
+
+
+
 
 create table Cargo (
     codCargo smallint not null,
